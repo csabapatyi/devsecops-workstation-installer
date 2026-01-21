@@ -1,0 +1,195 @@
+---
+#------------------------------------------------------------------------------
+# Arch Linux - Extra Variables
+#------------------------------------------------------------------------------
+# This is an example configuration for Arch Linux.
+# Copy this file and customize it for your needs.
+#
+# Note: Arch Linux is a rolling release distribution. Package names and
+# availability may change frequently.
+#------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------
+# User Configuration
+#------------------------------------------------------------------------------
+workstation_user: "{{ ansible_user_id }}"
+workstation_user_shell: "/bin/bash"  # Options: /bin/bash, /bin/zsh, /usr/bin/fish
+
+#------------------------------------------------------------------------------
+# Nvidia Configuration
+#------------------------------------------------------------------------------
+install_nvidia_drivers: false
+nvidia_driver_type: "proprietary"  # Options: proprietary, open, nouveau
+
+# Nvidia packages for Arch Linux
+# nvidia_packages:
+#   - nvidia
+#   - nvidia-utils
+#   - nvidia-settings
+# For open kernel modules (Turing+ GPUs):
+#   - nvidia-open
+
+#------------------------------------------------------------------------------
+# Container Engine
+#------------------------------------------------------------------------------
+container_engine: "docker"  # Options: docker, podman, none
+
+# Note: On Arch, Docker is available from official repos
+# No need for separate GPG keys/repos
+
+#------------------------------------------------------------------------------
+# Virtualization Configuration
+#------------------------------------------------------------------------------
+virtualization_provider: "none"  # Options: libvirt, virtualbox, none
+
+install_vagrant: false
+install_terraform: false
+
+# VirtualBox (if using virtualbox provider)
+install_vbox_extpack: false
+
+#------------------------------------------------------------------------------
+# VS Code Configuration
+#------------------------------------------------------------------------------
+vscode_install_method: "repo"  # Options: repo, flatpak, snap, none
+# Note: On Arch, VS Code is available as 'code' from official repos
+
+vscode_extensions:
+  - ms-python.python
+  - ms-azuretools.vscode-docker
+  - redhat.ansible
+  - redhat.vscode-yaml
+
+#------------------------------------------------------------------------------
+# Shell / Starship
+#------------------------------------------------------------------------------
+install_starship: true
+load_custom_starship_config: false
+starship_config_dir: "~/.config"
+
+custom_shell_content: |
+    # Custom aliases
+    alias ll="ls -la"
+    alias update="sudo pacman -Syu"
+
+custom_shell_aliases: []
+
+#------------------------------------------------------------------------------
+# Repositories
+#------------------------------------------------------------------------------
+# Arch uses pacman - no custom repo configuration needed for most packages
+# For AUR packages, consider using an AUR helper like yay or paru
+
+custom_repositories: []
+
+direct_pacman_urls: []
+# Example:
+#   - "https://example.com/package.pkg.tar.zst"
+
+#------------------------------------------------------------------------------
+# System Packages (from OS repositories)
+#------------------------------------------------------------------------------
+system_packages:
+  # Terminal utilities
+  - htop
+  - btop
+  - tree
+  - jq
+  - curl
+  - wget
+  - tmux
+
+  # Development
+  - git
+  - make
+  - base-devel
+  - python-pip
+
+  # Networking
+  - bind
+  - ca-certificates
+  - nmap
+  - inetutils
+
+  # Shells
+  - fish
+  - zsh
+
+  # Editors
+  - vim
+
+#------------------------------------------------------------------------------
+# Flatpak Configuration
+#------------------------------------------------------------------------------
+flatpak_remotes: []
+
+flatpak_packages: []
+# Example:
+#   - com.spotify.Client
+#   - org.mozilla.firefox
+
+#------------------------------------------------------------------------------
+# Snap Configuration
+#------------------------------------------------------------------------------
+install_snapd: false
+snap_packages: []
+# Note: Snap is not officially supported on Arch
+
+#------------------------------------------------------------------------------
+# Rust/Cargo Packages
+#------------------------------------------------------------------------------
+rust_cargo_packages: []
+# Example:
+#   - bat
+#   - eza
+#   - ripgrep
+# Note: Many Rust tools are available directly from Arch repos
+
+#------------------------------------------------------------------------------
+# NPM Global Packages
+#------------------------------------------------------------------------------
+npm_packages: []
+
+#------------------------------------------------------------------------------
+# URL Binary Downloads
+#------------------------------------------------------------------------------
+url_packages: []
+# Example:
+#   - name: "kubectl"
+#     url: "https://dl.k8s.io/release/v1.32.0/bin/linux/amd64/kubectl"
+#     dest: "/usr/local/bin/kubectl"
+
+#------------------------------------------------------------------------------
+# AppImage Downloads
+#------------------------------------------------------------------------------
+appimage_packages: []
+
+#------------------------------------------------------------------------------
+# GitHub Repository Cloning
+#------------------------------------------------------------------------------
+github_repos: []
+
+#------------------------------------------------------------------------------
+# Cloud CLI Tools
+#------------------------------------------------------------------------------
+install_aws_cli: false
+install_azure_cli: false
+install_gcp_cli: false
+install_gitlab_cli: false
+install_github_cli: false
+
+#------------------------------------------------------------------------------
+# Dotfiles & Ricing
+#------------------------------------------------------------------------------
+dotfiles_repo: ""
+dotfiles_dest: "~/.dotfiles"
+dotfiles_version: "main"
+
+nerd_font_urls: []
+# Example:
+#   - "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip"
+
+#------------------------------------------------------------------------------
+# Misc
+#------------------------------------------------------------------------------
+install_neovim: false

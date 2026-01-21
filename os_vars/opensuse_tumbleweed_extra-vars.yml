@@ -1,0 +1,203 @@
+---
+#------------------------------------------------------------------------------
+# openSUSE Tumbleweed - Extra Variables
+#------------------------------------------------------------------------------
+# This is an example configuration for openSUSE Tumbleweed.
+# Copy this file and customize it for your needs.
+#
+# Note: openSUSE Tumbleweed is a rolling release distribution.
+# Package names and availability may change.
+#------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------
+# User Configuration
+#------------------------------------------------------------------------------
+workstation_user: "{{ ansible_user_id }}"
+workstation_user_shell: "/bin/bash"  # Options: /bin/bash, /bin/zsh, /usr/bin/fish
+
+#------------------------------------------------------------------------------
+# Nvidia Configuration
+#------------------------------------------------------------------------------
+install_nvidia_drivers: false
+nvidia_driver_type: "proprietary"  # Options: proprietary, open, nouveau
+
+# Nvidia packages for openSUSE
+# First add the Nvidia repo:
+#   sudo zypper addrepo --refresh https://download.nvidia.com/opensuse/tumbleweed NVIDIA
+# nvidia_packages:
+#   - nvidia-driver-G06-kmp-default
+#   - nvidia-gl-G06
+
+#------------------------------------------------------------------------------
+# Container Engine
+#------------------------------------------------------------------------------
+container_engine: "podman"  # Options: docker, podman, none
+# Note: openSUSE ships with Podman by default
+
+# Docker settings (if using docker)
+docker_gpg_key: ""
+docker_repo_url: ""
+# Note: For Docker on openSUSE, you may need to add the Docker repo manually
+# or use the docker package from official repos
+
+#------------------------------------------------------------------------------
+# Virtualization Configuration
+#------------------------------------------------------------------------------
+virtualization_provider: "none"  # Options: libvirt, virtualbox, none
+
+# HashiCorp tools - may need manual installation on openSUSE
+hashicorp_fallback_release: ""
+
+install_vagrant: false
+install_terraform: false
+
+# VirtualBox (if using virtualbox provider)
+install_vbox_extpack: false
+vbox_fallback_release: ""
+
+#------------------------------------------------------------------------------
+# VS Code Configuration
+#------------------------------------------------------------------------------
+vscode_install_method: "repo"  # Options: repo, flatpak, snap, none
+vscode_repo_url: "https://packages.microsoft.com/yumrepos/vscode"
+vscode_repo_key: "https://packages.microsoft.com/keys/microsoft.asc"
+
+vscode_extensions:
+  - ms-python.python
+  - ms-azuretools.vscode-docker
+  - redhat.ansible
+  - redhat.vscode-yaml
+
+#------------------------------------------------------------------------------
+# Shell / Starship
+#------------------------------------------------------------------------------
+install_starship: true
+load_custom_starship_config: false
+starship_config_dir: "~/.config"
+
+custom_shell_content: |
+    # Custom aliases
+    alias ll="ls -la"
+    alias update="sudo zypper dup"
+
+custom_shell_aliases: []
+
+#------------------------------------------------------------------------------
+# Repositories
+#------------------------------------------------------------------------------
+custom_repositories: []
+# Example:
+#   - name: "packman"
+#     zypper_repo: "https://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_Tumbleweed/"
+#     gpg_key: "https://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_Tumbleweed/repodata/repomd.xml.key"
+
+direct_zypper_urls: []
+# Example:
+#   - "https://example.com/package.rpm"
+
+#------------------------------------------------------------------------------
+# System Packages (from OS repositories)
+#------------------------------------------------------------------------------
+system_packages:
+  # Terminal utilities
+  - htop
+  - btop
+  - tree
+  - jq
+  - curl
+  - wget
+  - tmux
+
+  # Development
+  - git
+  - make
+  - gcc
+  - gcc-c++
+  - python3-pip
+
+  # Networking
+  - bind-utils
+  - ca-certificates
+  - nmap
+
+  # Shells
+  - fish
+  - zsh
+
+  # Patterns (meta-packages)
+  # - patterns-devel-base-devel_basis
+
+#------------------------------------------------------------------------------
+# Flatpak Configuration
+#------------------------------------------------------------------------------
+flatpak_remotes: []
+
+flatpak_packages: []
+# Example:
+#   - com.spotify.Client
+#   - org.mozilla.firefox
+
+#------------------------------------------------------------------------------
+# Snap Configuration
+#------------------------------------------------------------------------------
+install_snapd: false
+snap_packages: []
+# Note: Snap requires manual setup on openSUSE
+
+#------------------------------------------------------------------------------
+# Rust/Cargo Packages
+#------------------------------------------------------------------------------
+rust_cargo_packages: []
+# Example:
+#   - bat
+#   - eza
+#   - ripgrep
+
+#------------------------------------------------------------------------------
+# NPM Global Packages
+#------------------------------------------------------------------------------
+npm_packages: []
+
+#------------------------------------------------------------------------------
+# URL Binary Downloads
+#------------------------------------------------------------------------------
+url_packages: []
+# Example:
+#   - name: "kubectl"
+#     url: "https://dl.k8s.io/release/v1.32.0/bin/linux/amd64/kubectl"
+#     dest: "/usr/local/bin/kubectl"
+
+#------------------------------------------------------------------------------
+# AppImage Downloads
+#------------------------------------------------------------------------------
+appimage_packages: []
+
+#------------------------------------------------------------------------------
+# GitHub Repository Cloning
+#------------------------------------------------------------------------------
+github_repos: []
+
+#------------------------------------------------------------------------------
+# Cloud CLI Tools
+#------------------------------------------------------------------------------
+install_aws_cli: false
+install_azure_cli: false
+install_gcp_cli: false
+install_gitlab_cli: false
+install_github_cli: false
+
+#------------------------------------------------------------------------------
+# Dotfiles & Ricing
+#------------------------------------------------------------------------------
+dotfiles_repo: ""
+dotfiles_dest: "~/.dotfiles"
+dotfiles_version: "main"
+
+nerd_font_urls: []
+# Example:
+#   - "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip"
+
+#------------------------------------------------------------------------------
+# Misc
+#------------------------------------------------------------------------------
+install_neovim: false

@@ -1,0 +1,225 @@
+---
+#------------------------------------------------------------------------------
+# WSL Ubuntu - Extra Variables
+#------------------------------------------------------------------------------
+# This is an example configuration for Ubuntu running in Windows Subsystem
+# for Linux (WSL2).
+#
+# WSL-specific considerations:
+# - No systemd by default (though WSL2 can enable it)
+# - No GPU drivers needed (uses Windows drivers via WSLg)
+# - No desktop environment packages needed
+# - Docker Desktop for Windows is recommended over native Docker
+# - Some services may behave differently than on bare metal
+#------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------
+# User Configuration
+#------------------------------------------------------------------------------
+workstation_user: "{{ ansible_user_id }}"
+workstation_user_shell: "/bin/bash"  # Options: /bin/bash, /bin/zsh, /usr/bin/fish
+
+#------------------------------------------------------------------------------
+# Nvidia Configuration
+#------------------------------------------------------------------------------
+# WSL uses Windows GPU drivers - do not install Linux Nvidia drivers
+install_nvidia_drivers: false
+nvidia_driver_type: "nouveau"
+
+#------------------------------------------------------------------------------
+# Container Engine
+#------------------------------------------------------------------------------
+# Recommended: Use Docker Desktop for Windows with WSL2 backend
+# If you want native Docker in WSL, set to "docker"
+container_engine: "none"  # Options: docker, podman, none
+
+# Docker settings (if using native docker in WSL)
+docker_gpg_key: "https://download.docker.com/linux/ubuntu/gpg"
+docker_repo_url: "https://download.docker.com/linux/ubuntu"
+
+#------------------------------------------------------------------------------
+# Virtualization Configuration
+#------------------------------------------------------------------------------
+# Virtualization is not supported inside WSL
+virtualization_provider: "none"
+
+# HashiCorp tools work in WSL
+hashicorp_gpg_key: "https://apt.releases.hashicorp.com/gpg"
+hashicorp_fallback_release: ""
+
+install_vagrant: false  # Vagrant in WSL has limitations
+install_terraform: true  # Terraform works well in WSL
+
+# VirtualBox is not supported in WSL
+install_vbox_extpack: false
+
+#------------------------------------------------------------------------------
+# VS Code Configuration
+#------------------------------------------------------------------------------
+# Recommended: Install VS Code on Windows and use "Remote - WSL" extension
+# This installs VS Code Server in WSL for the Remote extension
+vscode_install_method: "none"  # Options: repo, flatpak, snap, none
+
+vscode_extensions: []
+# Extensions are managed on Windows side when using Remote - WSL
+
+#------------------------------------------------------------------------------
+# Shell / Starship
+#------------------------------------------------------------------------------
+install_starship: true
+load_custom_starship_config: false
+starship_config_dir: "~/.config"
+
+custom_shell_content: |
+    # WSL-specific configuration
+
+    # Access Windows home directory
+    export WINHOME="/mnt/c/Users/${USER}"
+
+    # Custom aliases
+    alias ll="ls -la"
+    alias update="sudo apt update && sudo apt upgrade -y"
+
+    # Open files with Windows default application
+    alias open="wslview"
+
+    # Access Windows clipboard
+    alias clip="clip.exe"
+    alias paste="powershell.exe Get-Clipboard"
+
+    # Start Windows Explorer in current directory
+    alias explorer="explorer.exe ."
+
+custom_shell_aliases: []
+
+#------------------------------------------------------------------------------
+# Repositories
+#------------------------------------------------------------------------------
+custom_ppas: []
+# Example:
+#   - "ppa:neovim-ppa/stable"
+
+custom_repositories: []
+
+direct_deb_urls: []
+# Example:
+#   - "https://example.com/package.deb"
+
+#------------------------------------------------------------------------------
+# System Packages (from OS repositories)
+#------------------------------------------------------------------------------
+system_packages:
+  # Terminal utilities
+  - htop
+  - btop
+  - tree
+  - jq
+  - curl
+  - wget
+  - tmux
+  - unzip
+
+  # Development
+  - git
+  - make
+  - build-essential
+  - python3-pip
+  - python3-venv
+
+  # Networking
+  - net-tools
+  - dnsutils
+  - ca-certificates
+  - openssh-client
+
+  # Shells
+  - fish
+  - zsh
+
+  # WSL utilities
+  - wslu  # WSL utilities (wslview, wslpath, etc.)
+
+  # Editors
+  - vim
+  - nano
+
+#------------------------------------------------------------------------------
+# Flatpak Configuration
+#------------------------------------------------------------------------------
+# Flatpak GUI apps don't work well in WSL without WSLg
+flatpak_remotes: []
+flatpak_packages: []
+
+#------------------------------------------------------------------------------
+# Snap Configuration
+#------------------------------------------------------------------------------
+# Snap has issues in WSL - not recommended
+install_snapd: false
+snap_packages: []
+
+#------------------------------------------------------------------------------
+# Rust/Cargo Packages
+#------------------------------------------------------------------------------
+rust_cargo_packages: []
+# Example:
+#   - bat
+#   - eza
+#   - ripgrep
+#   - fd-find
+
+#------------------------------------------------------------------------------
+# NPM Global Packages
+#------------------------------------------------------------------------------
+npm_packages: []
+# Example:
+#   - typescript
+#   - prettier
+
+#------------------------------------------------------------------------------
+# URL Binary Downloads
+#------------------------------------------------------------------------------
+url_packages: []
+# Example:
+#   - name: "kubectl"
+#     url: "https://dl.k8s.io/release/v1.32.0/bin/linux/amd64/kubectl"
+#     dest: "/usr/local/bin/kubectl"
+
+#------------------------------------------------------------------------------
+# AppImage Downloads
+#------------------------------------------------------------------------------
+# AppImages don't work well in WSL
+appimage_packages: []
+
+#------------------------------------------------------------------------------
+# GitHub Repository Cloning
+#------------------------------------------------------------------------------
+github_repos: []
+# Example:
+#   - repo: "https://github.com/user/project.git"
+#     dest: "~/Projects/project"
+#     version: "main"
+
+#------------------------------------------------------------------------------
+# Cloud CLI Tools
+#------------------------------------------------------------------------------
+install_aws_cli: true
+install_azure_cli: true
+install_gcp_cli: false
+install_gitlab_cli: false
+install_github_cli: true
+
+#------------------------------------------------------------------------------
+# Dotfiles & Ricing
+#------------------------------------------------------------------------------
+dotfiles_repo: ""
+dotfiles_dest: "~/.dotfiles"
+dotfiles_version: "main"
+
+nerd_font_urls: []
+# Note: Fonts should be installed on Windows, not in WSL
+# Windows Terminal will use fonts from the Windows font directory
+
+#------------------------------------------------------------------------------
+# Misc
+#------------------------------------------------------------------------------
+install_neovim: true

@@ -1,0 +1,16 @@
+---
+#------------------------------------------------------------------------------
+# Ansible Galaxy Requirements
+#------------------------------------------------------------------------------
+# Install with: ansible-galaxy install -r requirements.yml
+#------------------------------------------------------------------------------
+
+roles:
+  - name: csabapatyi.devsecops_workstation
+    src: https://github.com/csabapatyi/ansible-role-devsecops-workstation.git
+    scm: git
+    version: main
+
+collections:
+  - name: community.general
+  - name: ansible.posix

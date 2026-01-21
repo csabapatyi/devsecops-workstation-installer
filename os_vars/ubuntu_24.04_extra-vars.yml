@@ -1,0 +1,196 @@
+---
+#------------------------------------------------------------------------------
+# Ubuntu 24.04 LTS (Noble Numbat) - Extra Variables
+#------------------------------------------------------------------------------
+# This is an example configuration for Ubuntu 24.04 LTS.
+# Copy this file and customize it for your needs.
+#------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------
+# User Configuration
+#------------------------------------------------------------------------------
+workstation_user: "{{ ansible_user_id }}"
+workstation_user_shell: "/bin/bash"  # Options: /bin/bash, /bin/zsh, /usr/bin/fish
+
+#------------------------------------------------------------------------------
+# Nvidia Configuration
+#------------------------------------------------------------------------------
+install_nvidia_drivers: false
+nvidia_driver_type: "proprietary"  # Options: proprietary, open, nouveau
+
+# Nvidia packages for Ubuntu 24.04
+# Check available versions with: apt search nvidia-driver-
+# Or get recommendation with: ubuntu-drivers devices
+# nvidia_packages:
+#   - nvidia-driver-550
+#   - nvidia-utils-550
+#   - nvidia-settings
+
+#------------------------------------------------------------------------------
+# Container Engine
+#------------------------------------------------------------------------------
+container_engine: "docker"  # Options: docker, podman, none
+
+docker_gpg_key: "https://download.docker.com/linux/ubuntu/gpg"
+docker_repo_url: "https://download.docker.com/linux/ubuntu"
+
+#------------------------------------------------------------------------------
+# Virtualization Configuration
+#------------------------------------------------------------------------------
+virtualization_provider: "none"  # Options: libvirt, virtualbox, none
+
+# HashiCorp Repository (for Vagrant/Terraform)
+hashicorp_gpg_key: "https://apt.releases.hashicorp.com/gpg"
+hashicorp_fallback_release: ""  # Not needed for 24.04 LTS
+
+install_vagrant: false
+install_terraform: false
+
+# VirtualBox (if using virtualbox provider)
+install_vbox_extpack: false
+vbox_gpg_key: "https://www.virtualbox.org/download/oracle_vbox_2016.asc"
+vbox_repo_url: "https://download.virtualbox.org/virtualbox/debian"
+vbox_fallback_release: ""
+
+#------------------------------------------------------------------------------
+# VS Code Configuration
+#------------------------------------------------------------------------------
+vscode_install_method: "repo"  # Options: repo, flatpak, snap, none
+vscode_repo_url: "https://packages.microsoft.com/repos/code"
+vscode_repo_key: "https://packages.microsoft.com/keys/microsoft.asc"
+
+vscode_extensions:
+  - ms-python.python
+  - ms-azuretools.vscode-docker
+  - redhat.ansible
+  - redhat.vscode-yaml
+
+#------------------------------------------------------------------------------
+# Shell / Starship
+#------------------------------------------------------------------------------
+install_starship: true
+load_custom_starship_config: false
+starship_config_dir: "~/.config"
+
+custom_shell_content: |
+    # Custom aliases
+    alias ll="ls -la"
+    alias update="sudo apt update && sudo apt upgrade -y"
+
+custom_shell_aliases: []
+
+#------------------------------------------------------------------------------
+# Repositories
+#------------------------------------------------------------------------------
+custom_ppas: []
+# Example:
+#   - "ppa:neovim-ppa/stable"
+
+custom_repositories: []
+# Example:
+#   - name: "google-chrome"
+#     apt_repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome-keyring.gpg] http://dl.google.com/linux/chrome/deb/ stable main"
+#     gpg_key: "https://dl.google.com/linux/linux_signing_key.pub"
+
+direct_deb_urls: []
+# Example:
+#   - "https://example.com/package.deb"
+
+#------------------------------------------------------------------------------
+# System Packages (from OS repositories)
+#------------------------------------------------------------------------------
+system_packages:
+  # Terminal utilities
+  - htop
+  - btop
+  - tree
+  - jq
+  - curl
+  - wget
+  - tmux
+
+  # Development
+  - git
+  - make
+  - build-essential
+  - python3-pip
+  - python3-venv
+
+  # Networking
+  - net-tools
+  - dnsutils
+  - ca-certificates
+
+#------------------------------------------------------------------------------
+# Flatpak Configuration
+#------------------------------------------------------------------------------
+flatpak_remotes: []
+
+flatpak_packages: []
+# Example:
+#   - com.spotify.Client
+#   - org.mozilla.firefox
+
+#------------------------------------------------------------------------------
+# Snap Configuration
+#------------------------------------------------------------------------------
+install_snapd: false
+snap_packages: []
+
+#------------------------------------------------------------------------------
+# Rust/Cargo Packages
+#------------------------------------------------------------------------------
+rust_cargo_packages: []
+# Example:
+#   - bat
+#   - eza
+#   - ripgrep
+
+#------------------------------------------------------------------------------
+# NPM Global Packages
+#------------------------------------------------------------------------------
+npm_packages: []
+
+#------------------------------------------------------------------------------
+# URL Binary Downloads
+#------------------------------------------------------------------------------
+url_packages: []
+# Example:
+#   - name: "kubectl"
+#     url: "https://dl.k8s.io/release/v1.32.0/bin/linux/amd64/kubectl"
+#     dest: "/usr/local/bin/kubectl"
+
+#------------------------------------------------------------------------------
+# AppImage Downloads
+#------------------------------------------------------------------------------
+appimage_packages: []
+
+#------------------------------------------------------------------------------
+# GitHub Repository Cloning
+#------------------------------------------------------------------------------
+github_repos: []
+
+#------------------------------------------------------------------------------
+# Cloud CLI Tools
+#------------------------------------------------------------------------------
+install_aws_cli: false
+install_azure_cli: false
+install_gcp_cli: false
+install_gitlab_cli: false
+install_github_cli: false
+
+#------------------------------------------------------------------------------
+# Dotfiles & Ricing
+#------------------------------------------------------------------------------
+dotfiles_repo: ""
+dotfiles_dest: "~/.dotfiles"
+dotfiles_version: "main"
+
+nerd_font_urls: []
+# Example:
+#   - "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip"
+
+#------------------------------------------------------------------------------
+# Misc
+#------------------------------------------------------------------------------
+install_neovim: false
