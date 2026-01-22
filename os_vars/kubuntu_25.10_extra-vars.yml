@@ -1,25 +1,12 @@
----
-#------------------------------------------------------------------------------
-# Ubuntu 25.10 (Questing Quokka) - Extra Variables
-#------------------------------------------------------------------------------
-# This is an example configuration for Ubuntu 25.10.
-# Copy this file and customize it for your needs.
-#
-# Note: Ubuntu 25.10 uses sudo-rs (Rust rewrite of sudo) which has stricter
-# sudoers file validation than traditional sudo.
-#------------------------------------------------------------------------------
-
-#------------------------------------------------------------------------------
-# User Configuration
-#------------------------------------------------------------------------------
 workstation_user: "{{ ansible_user_id }}"
-workstation_user_shell: "/usr/bin/fish" # Options: /bin/bash, /bin/zsh, /usr/bin/fish
+workstation_user_shell: "/usr/bin/fish"
+
 
 #------------------------------------------------------------------------------
 # Nvidia Configuration
 #------------------------------------------------------------------------------
 install_nvidia_drivers: true
-nvidia_driver_type: "proprietary" # Options: proprietary, open, nouveau
+nvidia_driver_type: "proprietary"  # Options: proprietary, open, nouveau
 
 # Nvidia packages for Ubuntu 25.10
 # Check available versions with: apt search nvidia-driver-
@@ -29,18 +16,20 @@ nvidia_packages:
   - nvidia-utils-580
   - nvidia-settings
 
+
 #------------------------------------------------------------------------------
 # Container Engine
 #------------------------------------------------------------------------------
-container_engine: "docker" # Options: docker, podman, none
+container_engine: "docker"  # Options: docker, podman, none
 
 docker_gpg_key: "https://download.docker.com/linux/ubuntu/gpg"
 docker_repo_url: "https://download.docker.com/linux/ubuntu"
 
+
 #------------------------------------------------------------------------------
 # Virtualization Configuration
 #------------------------------------------------------------------------------
-virtualization_provider: "libvirt" # Options: libvirt, virtualbox, none
+virtualization_provider: "libvirt"  # Options: libvirt, virtualbox, none
 
 # HashiCorp Repository (for Vagrant/Terraform)
 hashicorp_gpg_key: "https://apt.releases.hashicorp.com/gpg"
@@ -56,10 +45,11 @@ vbox_gpg_key: "https://www.virtualbox.org/download/oracle_vbox_2016.asc"
 vbox_repo_url: "https://download.virtualbox.org/virtualbox/debian"
 vbox_fallback_release: "noble"
 
+
 #------------------------------------------------------------------------------
 # VS Code Configuration
 #------------------------------------------------------------------------------
-vscode_install_method: "repo" # Options: repo, flatpak, snap, none
+vscode_install_method: "repo"  # Options: repo, flatpak, snap, none
 vscode_repo_url: "https://packages.microsoft.com/repos/code"
 vscode_repo_key: "https://packages.microsoft.com/keys/microsoft.asc"
 
@@ -69,6 +59,7 @@ vscode_extensions:
   - redhat.ansible
   - redhat.vscode-yaml
 
+
 #------------------------------------------------------------------------------
 # Shell / Starship
 #------------------------------------------------------------------------------
@@ -76,12 +67,9 @@ install_starship: true
 load_custom_starship_config: false
 starship_config_dir: "~/.config"
 
-custom_shell_content: |
-  # Custom aliases
-  alias ll="ls -la"
-  alias update="sudo apt update && sudo apt upgrade -y"
-
+custom_shell_content: ""
 custom_shell_aliases: []
+
 
 #------------------------------------------------------------------------------
 # Repositories
@@ -97,44 +85,92 @@ custom_repositories: []
 #     gpg_key: "https://dl.google.com/linux/linux_signing_key.pub"
 
 direct_deb_urls:
-  # Example:
-  #   - "https://example.com/package.deb"
-  - "https://www.synaptics.com/sites/default/files/Ubuntu/pool/stable/main/all/synaptics-repository-keyring.deb" # For displaylink Driver
+# Example:
+#   - "https://example.com/package.deb"
+  - "https://www.synaptics.com/sites/default/files/Ubuntu/pool/stable/main/all/synaptics-repository-keyring.deb"
+
 
 #------------------------------------------------------------------------------
 # System Packages (from OS repositories)
 #------------------------------------------------------------------------------
 system_packages:
   # Terminal utilities
+  - mc
   - htop
   - btop
+  - glances
   - tree
   - jq
   - curl
   - wget
   - tmux
+  - nala
+  - fish
+  - fish-common
+  - tree
+  - gdebi
 
   # Development
   - git
+  - stow
   - make
   - build-essential
   - python3-pip
   - python3-venv
+  - cargo
+  - golang
+  - openssl
+  #- terraform
+  #- vagrant
+  - virt-manager
+  - code
 
   # Networking
   - net-tools
   - dnsutils
   - ca-certificates
+  - speedtest-cli
+
+  # DevSecOps Tools
+  - nmap
+
+  # Desktop Packages
+  - krusader
+  - yakuake
+  - kdeconnect
+  - nautilus-kdeconnect
+  - kde-config-flatpak
+  - plasma-discover-backend-flatpak
+  - virt-manager
+
+  # System Lib
+  - displaylink-driver
+  - ffmpeg
+  - qemu-system-common
+  - qemu-utils
+
 
 #------------------------------------------------------------------------------
 # Flatpak Configuration
 #------------------------------------------------------------------------------
 flatpak_remotes: []
 
-flatpak_packages: []
+flatpak_packages:
 # Example:
-#   - com.spotify.Client
-#   - org.mozilla.firefox
+  # Browsers
+  - app.zen_browser.zen
+  - com.brave.Browser
+  - com.microsoft.Edge
+  # Dev + Utils
+  - com.bitwarden.desktop                 # Password Manager Desktop Client
+  - dev.zed.Zed                           # Rust based IDE
+  - org.freefilesync.FreeFileSync         # File Sync utility
+  - io.github.vikdevelop.SaveDesktop      # Save desktop config
+  - com.github.tchx84.Flatseal            # Configure FlatPak package permissions
+  # Media
+  - com.github.unrud.VideoDownloader      # YouTube downloader
+  - com.spotify.Client                    # Spotify
+  - org.videolan.VLC                      # VLC playerc
 
 #------------------------------------------------------------------------------
 # Snap Configuration
@@ -142,19 +178,25 @@ flatpak_packages: []
 install_snapd: false
 snap_packages: []
 
+
 #------------------------------------------------------------------------------
 # Rust/Cargo Packages
 #------------------------------------------------------------------------------
-rust_cargo_packages: []
+rust_cargo_packages:
 # Example:
-#   - bat
-#   - eza
-#   - ripgrep
+  - cargo-update
+  - bat
+  - eza
+  - ripgrep
+  - gitui
+  - topgrade
+  - zoxide
 
 #------------------------------------------------------------------------------
 # NPM Global Packages
 #------------------------------------------------------------------------------
 npm_packages: []
+
 
 #------------------------------------------------------------------------------
 # URL Binary Downloads
@@ -165,10 +207,12 @@ url_packages: []
 #     url: "https://dl.k8s.io/release/v1.32.0/bin/linux/amd64/kubectl"
 #     dest: "/usr/local/bin/kubectl"
 
+
 #------------------------------------------------------------------------------
-# AppImage Downloads
+# AppImage Downloadse
 #------------------------------------------------------------------------------
 appimage_packages: []
+
 
 #------------------------------------------------------------------------------
 # GitHub Repository Cloning
@@ -178,11 +222,12 @@ github_repos: []
 #------------------------------------------------------------------------------
 # Cloud CLI Tools
 #------------------------------------------------------------------------------
-install_aws_cli: false
+install_aws_cli: true
 install_azure_cli: false
 install_gcp_cli: false
 install_gitlab_cli: false
-install_github_cli: false
+install_github_cli: true
+
 
 #------------------------------------------------------------------------------
 # Dotfiles & Ricing
@@ -191,11 +236,14 @@ dotfiles_repo: ""
 dotfiles_dest: "~/.dotfiles"
 dotfiles_version: "main"
 
-nerd_font_urls: []
+
+nerd_font_urls:
 # Example:
-#   - "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip"
+  - "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip"
+  - "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/NerdFontsSymbolsOnly.zip"
+  - "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraCode.zip"
 
 #------------------------------------------------------------------------------
 # Misc
 #------------------------------------------------------------------------------
-install_neovim: false
+install_neovim: true
